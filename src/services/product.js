@@ -6,7 +6,7 @@ const cloud  = require('../services/cloud');
 
 const getProducts = async (req, res) => {
   try {
-    const productList = await product.find().limit(3)
+    const productList = await product.find({}, 'Price Name MRP Description Quantity StockQuantity ImageUrl').limit(3)
     //res.status(200).send(productList);
     const productLists = productList.map(product => ({
       Price: product.Price,
