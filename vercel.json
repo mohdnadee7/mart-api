@@ -11,5 +11,11 @@
         "src": "/(.*)",
         "dest": "/"
       }
-    ]
+    ],
+    "functions": {
+    "api/v1/products.js": {
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  }
   }
