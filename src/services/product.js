@@ -1,7 +1,6 @@
 const express = require('express');
-const router = express.Router();
 const product  = require('../entites/product');
-const cloud  = require('../services/cloud');
+//const cloud  = require('../services/cloud');
 
 
 const getProducts = async (req, res) => {
@@ -24,17 +23,17 @@ const getProducts = async (req, res) => {
 };
 
 
-// Get a product by ID
-router.get('/:id', (req, res) => {
-  const { id } = req.params;
-  res.json({ id, name: 'Sample Product', price: 50 });
-});
+// // Get a product by ID
+// router.get('/:id', (req, res) => {
+//   const { id } = req.params;
+//   res.json({ id, name: 'Sample Product', price: 50 });
+// });
 
-// Add a new product
-router.post('/', (req, res) => {
-  const product = req.body;
-  res.status(201).json({ message: 'Product added successfully', product });
-});
+// // Add a new product
+// router.post('/', (req, res) => {
+//   const product = req.body;
+//   res.status(201).json({ message: 'Product added successfully', product });
+// });
 
 
 module.exports = {
