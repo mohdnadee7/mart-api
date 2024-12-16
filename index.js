@@ -1,7 +1,7 @@
-const { connectDatabase } = require("./src/repository/connection");
 const express = require('express');
 const productRouter = require('./router/product')
 var cors = require("cors");
+const { connectDatabase } = require("./src/repository/connection");
 const app = express();
 const port = process.env.Port || 3000;
 
