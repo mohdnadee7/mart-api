@@ -28,3 +28,5 @@ start();
 app.listen(port, () => {
   console.log(`connection is live to this port ${port}`);
 });
+
+module.exports = app;
