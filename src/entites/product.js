@@ -33,7 +33,7 @@ const product = new mongoose.Schema({
   }
 });
 
-//Creating collection in data base
+//Creating collection in database
 const products = new mongoose.model("products", product);
 
 module.exports = products;
