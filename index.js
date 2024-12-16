@@ -1,5 +1,7 @@
 const express = require('express');
 const productRouter = require('./routes/product')
+const cotegoryRouter = require('./routes/categories')
+const subCotegoryRouter = require('./routes/subCategory')
 var cors = require("cors");
 const { connectDatabase } = require("./src/repository/connection");
 const app = express();
@@ -10,6 +12,7 @@ const port = process.env.Port || 3000;
 app.use(cors());
 app.use(express.json());
 app.use("/api/v1", productRouter);
+app.use("/api/v1", subCotegoryRouter);
 
 const start = () => {
   connectDatabase()
