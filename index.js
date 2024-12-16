@@ -1,5 +1,5 @@
 const express = require('express');
-const productRouter = require('./router/product')
+const productRouter = require('./routes/product')
 var cors = require("cors");
 const { connectDatabase } = require("./src/repository/connection");
 const app = express();
