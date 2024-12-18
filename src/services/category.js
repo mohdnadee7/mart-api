@@ -1,19 +1,20 @@
+
 const express = require('express');
-const router = express.Router();
+const category  = require('../entites/category');
+const cloud  = require('../services/cloud');
 
-// Get all categories
-router.get('/', (req, res) => {
-  const categories = [
-    { id: 1, name: 'Fruits' },
-    { id: 2, name: 'Dairy' },
-  ];
-  res.json(categories);
-});
 
-// Add a new category
-router.post('/', (req, res) => {
-  const category = req.body;
-  res.status(201).json({ message: 'Category added successfully', category });
-});
+const getCategories = async (req, res) => {
+  try {
+    const categories = await category.find({});
+   
+  res.status(200).send(categories);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 
-module.exports = router;
+module.exports = {
+  getCategories
+}
+
