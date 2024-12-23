@@ -15,7 +15,7 @@ const getProducts = async (req, res) => {
       StockQuantity: product.StockQuantity,
       ImageUrl: cloud.url(product.ImageUrl)
  }));
-  res.status(200).send(productLists);
+  res.status(200).json(productLists);
   } catch (error) {
     res.status(400).json(error);
   }
