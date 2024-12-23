@@ -3,7 +3,7 @@ const login  = require('../entites/login');
 
 const loginUser = async (req, res) => {
   try {
-    const createUser = new registration(req.body);
+    const createUser = new login(req.body);
     console.log("error111");
     const user = await createUser.save();
     console.log("2222");
