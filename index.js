@@ -2,6 +2,7 @@ const express = require('express');
 const productRouter = require('./routes/product')
 const cotegoryRouter = require('./routes/categories')
 const subCotegoryRouter = require('./routes/subCategory')
+const applicationRouter = require('./routes/application')
 var cors = require("cors");
 const { connectDatabase } = require("./src/repository/connection");
 const app = express();
@@ -11,6 +12,7 @@ const port = process.env.Port || 3000;
 // Middleware to parse JSON
 app.use(cors());
 app.use(express.json());
+app.use("/api/v1", applicationRouter);
 app.use("/api/v1", productRouter);
 app.use("/api/v1", subCotegoryRouter);
 
