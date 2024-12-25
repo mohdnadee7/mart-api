@@ -3,6 +3,7 @@ const productRouter = require('./routes/product')
 const cotegoryRouter = require('./routes/categories')
 const subCotegoryRouter = require('./routes/subCategory')
 const applicationRouter = require('./routes/application')
+const cartRouter = require('./routes/carts')
 var cors = require("cors");
 const { connectDatabase } = require("./src/repository/connection");
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/api/v1", applicationRouter);
 app.use("/api/v1", productRouter);
 app.use("/api/v1", subCotegoryRouter);
+app.use("/api/v1", cartRouter);
 
 const start = () => {
   connectDatabase()
