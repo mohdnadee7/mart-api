@@ -12,16 +12,25 @@ const getProducts = async (req, res) => {
   }
 };
 
+const getCartProductById = async (productIds) => {
+  try {
+    const productList = await product.find({ _id: { $in: productIds } });
+    const productLists = await productMapping(productList) 
+    return productLists;
+  } catch (error) {
+    throw new Error("Error fetching products by IDs: " + error.message);
+  }
+};
 const getProductById = async (req, res) => {
   try {
-    const productList = await product.find({ _id: { $in: res.body.productIds } });
-    const productLists = await productMapping(productList) 
-    
-    res.status(200).json(productLists);
+    const product = await product.findOne({ _id:req.query.id });
+    const productmaped = await productMapping(product) 
+    res.status(200).json(productmaped);
   } catch (error) {
     res.status(400).json(error);
   }
 };
+
 const productMapping = async (products) => {
   
     const productLists = products.map(product => ({
@@ -39,5 +48,6 @@ const productMapping = async (products) => {
 
 module.exports = {
   getProducts,
+  getCartProductById,
   getProductById
 }

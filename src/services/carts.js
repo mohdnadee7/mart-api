@@ -5,11 +5,11 @@ const productService = require("../services/product");
 const getCartItemByUserId = async (req, res) => {
   try {
     const cartItems = await cartEntity.find({ UserId: req.query.UserId });
+    const productIds = cartItems.map((item) => item.ProductId);
 
-    const productIds = cartItems.map((item) => item.productId);
-    const cartProducts = await productService.getProductById(productIds);
+    const cartProducts = await productService.getCartProductById(productIds);
 
-  res.status(200).json(cartProducts);
+    res.status(200).json(cartProducts);
   } catch (error) {
     res.status(400).json(error);
   }
