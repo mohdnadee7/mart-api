@@ -21,7 +21,7 @@ const addItemInCartByUserId = async (req, res) => {
         const addToCart = new cartEntity(req.body);
         const user = await addToCart.save();
      
-        res.status(200).Json(user, "Item added in cart");
+        res.status(200).json(user, "Item added in cart");
     } catch (error) {
       res.status(400).json(error);
     }
