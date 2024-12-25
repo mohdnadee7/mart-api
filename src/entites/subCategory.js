@@ -2,16 +2,16 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const subCategorySchema = new Schema({
-  displayName: {
+  DisplayName: {
     type: String,
   },
-  imageUrl: {
+  ImageUrl: {
     type: String,
   },
-  categoryId: {
+  CategoryId: {
     type: Number,
   },
-  subCategory: {
+  SubCategory: {
     type: String,
   },
 });

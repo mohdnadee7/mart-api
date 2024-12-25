@@ -1,4 +1,3 @@
-const express = require('express');
 const product  = require('../entites/product');
 const cloud  = require('../services/cloud');
 
