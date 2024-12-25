@@ -4,7 +4,7 @@ const productService = require("../services/product");
 
 const getCartItemByUserId = async (req, res) => {
   try {
-    const cartItems = await cartEntity.find({ UserId: req.body.UserId });
+    const cartItems = await cartEntity.find({ UserId: req.query.UserId });
 
     const productIds = cartItems.map((item) => item.productId);
     const cartProducts = await productService.getProductById(productIds);
@@ -38,7 +38,7 @@ const addItemInCartByUserId = async (req, res) => {
       if (!deletedCartItem) {
         return res.status(404).json({ message: "Cart item not found" });
       }
-      
+
       res.status(200).json({ message: "Item removed from cart", cartItem: deletedCartItem });
     } catch (error) {
       console.error("Error removing item from cart:", error);
