@@ -8,6 +8,7 @@ const getSubCategories = async (req, res) => {
     const subCategories = await subCategory.find({}).limit(6);
     
    const listCategory = subCategories.map(subCategory =>({
+    _id: subCategory._id,
     DisplayName : subCategory.DisplayName,
     SubCategory : subCategory.SubCategory,
     CategoryId : subCategory.CategoryId,    

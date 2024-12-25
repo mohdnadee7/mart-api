@@ -5,7 +5,27 @@ const cloud  = require('../services/cloud');
 const getProducts = async (req, res) => {
   try {
     const productList = await product.find({}).limit(3);
-    const productLists = productList.map(product => ({
+    const productLists = await productMapping(productList) 
+    res.status(200).json(productLists);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+const getProductById = async (req, res) => {
+  try {
+    const productList = await product.find({ _id: { $in: res.body.productIds } });
+    const productLists = await productMapping(productList) 
+    
+    res.status(200).json(productLists);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+const productMapping = async (products) => {
+  
+    const productLists = products.map(product => ({
+      _id:product._id,
       Price: product.Price,
       Name: product.Name,
       MRP: product.MRP,
@@ -14,12 +34,10 @@ const getProducts = async (req, res) => {
       StockQuantity: product.StockQuantity,
       ImageUrl: cloud.url(product.ImageUrl)
  }));
-  res.status(200).json(productLists);
-  } catch (error) {
-    res.status(400).json(error);
-  }
+ return productLists;
 };
 
 module.exports = {
-  getProducts
+  getProducts,
+  getProductById
 }
