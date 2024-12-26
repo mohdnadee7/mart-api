@@ -23,16 +23,27 @@ const getCartProductById = async (productIds) => {
 };
 const getProductById = async (req, res) => {
   try {
-    const product = await product.findOne({ _id:req.query.id });
-    const productmaped = await productMapping(product) 
-    res.status(200).json(productmaped);
+    const productId = req.query.id;
+    const item = await product.findOne({ _id:productId });
+    const productData = {
+      _id: item._id,
+      Price: item.Price,
+      Name: item.Name,
+      MRP: item.MRP,
+      Description: item.Description,
+      Quantity: item.Quantity,
+      StockQuantity: item.StockQuantity,
+      ImageUrl: cloud.url(item.ImageUrl),
+      CategoryId: item.CategoryId,
+    };
+
+    res.status(200).json(productData);
   } catch (error) {
     res.status(400).json(error);
   }
 };
 
 const productMapping = async (products) => {
-  
     const productLists = products.map(product => ({
       _id:product._id,
       Price: product.Price,
@@ -41,7 +52,8 @@ const productMapping = async (products) => {
       Description: product.Description,
       Quantity: product.Quantity,
       StockQuantity: product.StockQuantity,
-      ImageUrl: cloud.url(product.ImageUrl)
+      ImageUrl: cloud.url(product.ImageUrl),
+      CategoryId: product.CategoryId
  }));
  return productLists;
 };

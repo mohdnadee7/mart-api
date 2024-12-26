@@ -18,10 +18,28 @@ const getCartItemByUserId = async (req, res) => {
 
 const addItemInCartByUserId = async (req, res) => {
     try {
+      const existingCartItem = await cartEntity.findOne({
+        UserId: req.body.UserId,
+        ProductId: req.body.ProductId,
+      });
+  
+      if (existingCartItem) {
+        const updatedCartItem = await cartEntity.findOneAndUpdate(
+          { UserId: req.body.UserId, ProductId: req.body.ProductId },
+          { $inc: { ProductCount: ProductCount+1 } }, 
+          { new: true } 
+        );
+  
+        return res.status(200).json({
+          message: "Cart item quantity updated",
+          cartItem: updatedCartItem,
+        });
+      }
+
         const addToCart = new cartEntity(req.body);
         const user = await addToCart.save();
      
-        res.status(200).json(user, "Item added in cart");
+        res.status(200).json(user);
     } catch (error) {
       res.status(400).json(error);
     }
@@ -29,12 +47,12 @@ const addItemInCartByUserId = async (req, res) => {
 
   const removeCartById = async (req, res) => {
     try {
-      const { cartId } = req.body.id;  
+      const { cartId } = req.query.id;  
       if (!cartId) {
         return res.status(400).json({ message: "Cart ID is required" });
       }
 
-      const deletedCartItem = await cartEntity.findByIdAndDelete(cartId);  
+      const deletedCartItem = await cartEntity.findByIdAndDelete({ProductId:cartId});  
       if (!deletedCartItem) {
         return res.status(404).json({ message: "Cart item not found" });
       }
@@ -45,11 +63,21 @@ const addItemInCartByUserId = async (req, res) => {
       res.status(400).json({ error: error.message });
     }
   };
+
+  const getCartItemCountByUserId = async (req, res) => {
+    try {
+      const totalCart = await cartEntity.countDocuments({ UserId: req.query.UserId });
   
+      res.status(200).json({count:totalCart});
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  };
 
 module.exports = {
     getCartItemByUserId,
     addItemInCartByUserId,
-    removeCartById
+    removeCartById,
+    getCartItemCountByUserId
 }
 
