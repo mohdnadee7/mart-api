@@ -10,6 +10,11 @@ const cartSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    ProductCount:{
+        type:Number,
+        required:true,
+        default:0
+    },
     AddDate:{
         type:Date,
         default: Date.now,
