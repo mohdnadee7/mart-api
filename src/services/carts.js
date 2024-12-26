@@ -47,12 +47,12 @@ const addItemInCartByUserId = async (req, res) => {
 
   const removeCartById = async (req, res) => {
     try {
-      const { cartId } = req.query.id;  
+      const cartId  = req.query.id;  
       if (!cartId) {
         return res.status(400).json({ message: "Cart ID is required" });
       }
 
-      const deletedCartItem = await cartEntity.findByIdAndDelete({ProductId:cartId});  
+      const deletedCartItem = await cartEntity.deleteOne({ProductId:cartId});  
       if (!deletedCartItem) {
         return res.status(404).json({ message: "Cart item not found" });
       }
