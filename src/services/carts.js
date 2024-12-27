@@ -22,14 +22,14 @@ const addItemInCartByUserId = async (req, res) => {
         UserId: req.body.UserId,
         ProductId: req.body.ProductId,
       });
-  
+
       if (existingCartItem) {
         const updatedCartItem = await cartEntity.findOneAndUpdate(
           { UserId: req.body.UserId, ProductId: req.body.ProductId },
-          { $inc: { ProductCount: ProductCount+1 } }, 
+          { $inc: { ProductCount: 1 } }, 
           { new: true } 
         );
-  
+
         return res.status(200).json({
           message: "Cart item quantity updated",
           cartItem: updatedCartItem,
