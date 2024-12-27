@@ -5,7 +5,7 @@ const cloud  = require('../services/cloud');
 
 const getSubCategories = async (req, res) => {
   try {
-    const subCategories = await subCategory.find({}).limit(6);
+    const subCategories = await subCategory.find({}).limit(8);
     
    const listCategory = subCategories.map(subCategory =>({
     _id: subCategory._id,
